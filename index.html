@@ -61,66 +61,7 @@
         };
         let player = {};
         let ready = false;
-        /*
-        window.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelector('.video').addEventListener('click', () => {
-                document.querySelector('#mode').checked = !document.querySelector('#mode').checked;
-                if (document.querySelector('#mode').checked) {
-                    Object.keys(player).forEach((p) => {
-                        player[p].pauseVideo();
-                    });
-                }
-                Object.keys(items).forEach((p) => {
-                    if (document.querySelector('.videoselector.' + p).checked) {
-                        if (document.querySelector('#mode').checked) {
-                            player[p].pauseVideo();
-                        } else {
-                            player[p].playVideo();
-                        }
-                    }
-                });
-            }, false);
-            document.querySelectorAll('.menuitem').forEach((ele) => {
-                ele.addEventListener('click', function () {
-                    let faculty = this.getAttribute('x-item');
-                    console.log(faculty);
-                    if (ready && !player.hasOwnProperty(faculty)) {
-                        document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.add('kurukuru') });
-                        player[faculty] = new YT.Player('player_' + faculty, {
-                            videoId: items[faculty],
-                            width: "1024px",
-                            playerVars: { rel: 0 }
-                        });
-                        setTimeout((id) => {
-                            document.querySelector('.' + id + '[type=radio]').checked = true;
-                            document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.remove('kurukuru') });
-                        }, 500, faculty);
-                    } else {
-                        document.querySelector('.' + faculty + '[type=radio]').checked = true;
-                    }
-                    if (videos[faculty] && document.querySelector('section.' + faculty + ' ul.labos')) {
-                        videos[faculty].forEach((v) => {
-                            let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
-                            tpl.querySelector('.labo-video').id = v.youtube;
-                            tpl.querySelector('.labo-name').innerText = v.name;
-                            tpl.querySelector('.labo-position').innerText = v.position;
-                            tpl.querySelector('.labo-title').innerText = v.title;
-                            tpl.querySelector('.labo-keyword').innerText = v.keyword;
-                            tpl.querySelector('.labo-face').src = v.picture;
-                            document.querySelector('section.' + faculty + ' ul.labos').appendChild(tpl);
-                            let player = new YT.Player(v.youtube, {
-                                videoId: v.youtube,
-                                width: "1024px",
-                                playerVars: { rel: 0 }
-                            });
-                        });
-                        videos[faculty] = [];
-                    }
-                });
-            }, false);
-        });
-        */
-
+  
         function onYouTubeIframeAPIReady() {
             ready = true;
             let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
@@ -130,6 +71,7 @@
                 width: "1024px",
                 playerVars: {
                     rel: 0,
+                    'enablejsapi':1,
                     'origin': originURL
                 }
             });
@@ -163,6 +105,7 @@
                             width: "1024px",
                             playerVars: {
                                 rel: 0,
+                                'enablejsapi':1,
                                 'origin': originURL
                             }
                         });
@@ -192,6 +135,7 @@
                                 width: "1024px",
                                 playerVars: {
                                     rel: 0,
+                                    'enablejsapi':1,
                                     'origin': originURL
                                 }
                             });
