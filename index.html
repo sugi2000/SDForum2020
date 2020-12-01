@@ -4,6 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet/less" type="text/css" href="sdforum2020.less" />
+    <script>
+        (function (d) {
+            var config = {
+                kitId: 'otn7ddv',
+                scriptTimeout: 3000,
+                async: true
+            },
+                h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
+        })(document);
+    </script>
     <script src="https://kit.fontawesome.com/1337fa5d50.js" crossorigin="anonymous"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="//cdn.jsdelivr.net/npm/less"></script>
@@ -11,7 +21,7 @@
         var videos = {};
         fetch('videos.json')
             .then(response => response.json())
-            .then(data => {videos=data});
+            .then(data => { videos = data });
     </script>
     <script defer>
         //学部学科紹介動画 YouTubeID
@@ -49,16 +59,9 @@
             "aerospace": [],
             "industrialart": []
         };
-        (function (d) {
-            var config = {
-                kitId: 'otn7ddv',
-                scriptTimeout: 3000,
-                async: true
-            },
-                h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
-        })(document);
         let player = {};
         let ready = false;
+        /*
         window.addEventListener('DOMContentLoaded', (event) => {
             document.querySelector('.video').addEventListener('click', () => {
                 document.querySelector('#mode').checked = !document.querySelector('#mode').checked;
@@ -116,27 +119,83 @@
                 });
             }, false);
         });
-        /*var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         */
+
         function onYouTubeIframeAPIReady() {
             ready = true;
+            let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
+            console.log(originURL);
             player['sd'] = new YT.Player('player_sd', {
                 videoId: items['sd'],
                 width: "1024px",
-                playerVars: { rel: 0 }
+                playerVars: {
+                    rel: 0,
+                    'origin': originURL
+                }
             });
-            /*
-            document.querySelectorAll(".labo-video").forEach((ele) => {
-                ele.id = ele.getAttribute("x-youtube");
-                new YT.Player(ele.id, {
-                    videoId: ele.id
+            document.querySelector('.video').addEventListener('click', () => {
+                document.querySelector('#mode').checked = !document.querySelector('#mode').checked;
+                if (document.querySelector('#mode').checked) {
+                    Object.keys(player).forEach((p) => {
+                        player[p].pauseVideo();
+                    });
+                }
+                Object.keys(items).forEach((p) => {
+                    if (document.querySelector('.videoselector.' + p).checked) {
+                        if (document.querySelector('#mode').checked) {
+                            player[p].pauseVideo();
+                        } else {
+                            player[p].playVideo();
+                        }
+                    }
                 });
-            });
-            */
-
+            }, false);
+            document.querySelectorAll('.menuitem').forEach((ele) => {
+                ele.addEventListener('click', function () {
+                    let faculty = this.getAttribute('x-item');
+                    console.log(faculty);
+                    if (ready && !player.hasOwnProperty(faculty)) {
+                        document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.add('kurukuru') });
+                        let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
+                        console.log(originURL);
+                        player[faculty] = new YT.Player('player_' + faculty, {
+                            videoId: items[faculty],
+                            width: "1024px",
+                            playerVars: {
+                                rel: 0,
+                                'origin': originURL
+                            }
+                        });
+                        setTimeout((id) => {
+                            document.querySelector('.' + id + '[type=radio]').checked = true;
+                            document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.remove('kurukuru') });
+                        }, 500, faculty);
+                    } else {
+                        document.querySelector('.' + faculty + '[type=radio]').checked = true;
+                    }
+                    if (videos[faculty] && document.querySelector('section.' + faculty + ' ul.labos')) {
+                        videos[faculty].forEach((v) => {
+                            console.log("V YOUTUBE:", v.youtube);
+                            let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
+                            tpl.querySelector('.labo-video').id = v.youtube;
+                            tpl.querySelector('.labo-name').innerText = v.name;
+                            tpl.querySelector('.labo-position').innerText = v.position;
+                            tpl.querySelector('.labo-title').innerText = v.title;
+                            tpl.querySelector('.labo-keyword').innerText = v.keyword;
+                            tpl.querySelector('.labo-face').src = v.picture;
+                            document.querySelector('section.' + faculty + ' ul.labos').appendChild(tpl);
+                            let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
+                            console.log(originURL);
+                            let player = new YT.Player(v.youtube, {
+                                videoId: v.youtube,
+                                width: "1024px",
+                                playerVars: { rel: 0, 'origin': originURL }
+                            });
+                        });
+                        videos[faculty] = [];
+                    }
+                });
+            }, false);
         }
     </script>
 </head>
@@ -276,4 +335,4 @@
     </div>
 </body>
 
-</ht
+</ht     
