@@ -176,6 +176,7 @@
                     if (videos[faculty] && document.querySelector('section.' + faculty + ' ul.labos')) {
                         videos[faculty].forEach((v) => {
                             console.log("V YOUTUBE:", v.youtube);
+                            if (v.youtube == "") { return; }
                             let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
                             tpl.querySelector('.labo-video').id = v.youtube;
                             tpl.querySelector('.labo-name').innerText = v.name;
@@ -338,4 +339,4 @@
     </div>
 </body>
 
-</ht     
+</ht    
