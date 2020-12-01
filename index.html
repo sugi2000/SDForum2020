@@ -189,7 +189,10 @@
                             let player = new YT.Player(v.youtube, {
                                 videoId: v.youtube,
                                 width: "1024px",
-                                playerVars: { rel: 0, 'origin': originURL }
+                                playerVars: {
+                                    rel: 0,
+                                    'origin': originURL
+                                }
                             });
                         });
                         videos[faculty] = [];
