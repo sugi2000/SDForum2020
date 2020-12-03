@@ -14,8 +14,8 @@
                 h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
         })(document);
     </script>
-    <script src="https://kit.fontawesome.com/1337fa5d50.js" crossorigin="anonymous"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="//kit.fontawesome.com/1337fa5d50.js" crossorigin="anonymous"></script>
+    <script src="//www.youtube.com/iframe_api"></script>
     <script src="//cdn.jsdelivr.net/npm/less"></script>
     <script sync>
         var videos = {};
@@ -33,7 +33,7 @@
             "aerospace": "qfGggAGITwg",
             "industrialart": "x8yymm3DtVA"
         };
-        //研究室紹介動画
+        /* 研究室紹介動画フォーマット例
         var videos = {
             "sd": [],
             "cs": [
@@ -59,9 +59,10 @@
             "aerospace": [],
             "industrialart": []
         };
+        */
         let player = {};
         let ready = false;
-  
+
         function onYouTubeIframeAPIReady() {
             ready = true;
             let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
@@ -71,7 +72,7 @@
                 width: "1024px",
                 playerVars: {
                     rel: 0,
-                    'enablejsapi':1,
+                    'enablejsapi': 1,
                     'origin': originURL
                 }
             });
@@ -105,7 +106,7 @@
                             width: "1024px",
                             playerVars: {
                                 rel: 0,
-                                'enablejsapi':1,
+                                'enablejsapi': 1,
                                 'origin': originURL
                             }
                         });
@@ -135,7 +136,7 @@
                                 width: "1024px",
                                 playerVars: {
                                     rel: 0,
-                                    'enablejsapi':1,
+                                    'enablejsapi': 1,
                                     'origin': originURL
                                 }
                             });
@@ -267,20 +268,22 @@
     </article>
     <div id="card-template">
         <ui class="labo">
+            <div class="labo-base">
             <div class="labo-video"></div>
             <div class="labo-contents">
                 <div class="labo-title"></div>
                 <div class="labo-keyword"></div>
-                <div class="labo-prof">
-                    <span class="labo-name-wrap">
-                        <span class="labo-name"></span>
-                        <small class="labo-position"></small>
-                    </span>
-                    <img class="labo-face">
-                </div>
+            </div>
+            <div class="labo-prof">
+                <span class="labo-name-wrap">
+                    <span class="labo-name"></span>
+                    <small class="labo-position"></small>
+                </span>
+                <img class="labo-face">
+            </div>
             </div>
         </ui>
     </div>
 </body>
 
-</ht    
+</html>

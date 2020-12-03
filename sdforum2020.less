@@ -243,7 +243,7 @@ article.detail {
         }
 
         ui.labo {
-            display: flex;
+
             margin-bottom: 2rem;
 
             @media(min-width: 40rem) {
@@ -253,53 +253,67 @@ article.detail {
             @media(min-width: 56rem) {
                 width: calc(50% - 2vw);
             }
-
-            background-color: white;
             border-radius: 10px;
             box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
-
-            flex-direction: column;
             overflow: hidden;
 
-            .labo-video{
-                width:100%;
-                margin-top:10px;
-            }
-            .labo-contents {
+            .labo-base {
                 background: whitesmoke;
-                margin-bottom:10px;
-                padding:0 1rem; 
-                .labo-title{
+                margin: 10px 0px;
+                justify-content: space-between;
+                display:flex;
+                flex-direction: column;
+                height:calc(100% - 20px);
+            }
+
+            .labo-video {
+                width: 100%;
+                _margin-top: 10px;
+            }
+
+            .labo-contents {
+                padding: 0 1rem;
+
+                .labo-title {
                     text-align: center;
                 }
-                .labo-keyword{
+
+                .labo-keyword {
                     text-align: center;
-                    color:gray;
-                    font-size:0.7rem;
-                    &:before{
+                    color: gray;
+                    font-size: 0.7rem;
+
+                    &:before {
                         content: "Keywords: ";
                     }
                 }
-                .labo-prof {
-                    text-align: right;
-                    margin-bottom:1rem;
-                    img.labo-face {
-                        vertical-align: middle;
-                        width: 20%;
-                        clip-path: circle(50% at center);
-                    }
 
-                    span.labo-name-wrap {
-                        vertical-align: middle;
-                        font-size: 2rem;
-                        margin-right: 1rem;
-                    }
+            }
+
+            .labo-prof {
+                text-align: right;
+                _margin-bottom: 1rem;
+                _background: whitesmoke;
+                _margin-bottom: 10px;
+                padding: 0 1rem;
+
+                img.labo-face {
+                    vertical-align: middle;
+                    width: 20%;
+                    clip-path: circle(50% at center);
+                }
+
+                span.labo-name-wrap {
+                    vertical-align: middle;
+                    font-size: 2rem;
+                    margin-right: 1rem;
                 }
             }
         }
     }
-    #card-template{
-        display:none;
+
+    #card-template {
+        display: none;
     }
 }
 
