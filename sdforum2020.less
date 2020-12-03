@@ -243,16 +243,8 @@ article.detail {
         }
 
         ui.labo {
-
             margin-bottom: 2rem;
-
-            @media(min-width: 40rem) {
-                width: 100%;
-            }
-
-            @media(min-width: 56rem) {
-                width: calc(50% - 2vw);
-            }
+            width: calc(50% - 2vw);
             border-radius: 10px;
             box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
             overflow: hidden;
@@ -261,9 +253,9 @@ article.detail {
                 background: whitesmoke;
                 margin: 10px 0px;
                 justify-content: space-between;
-                display:flex;
+                display: flex;
                 flex-direction: column;
-                height:calc(100% - 20px);
+                height: calc(100% - 20px);
             }
 
             .labo-video {
@@ -317,8 +309,13 @@ article.detail {
     }
 }
 
-each(@colors, {
+@media screen and (orientation: portrait) {
+    article.detail>section ui.labo {
+        width: 100%;
+    }
+}
 
+each(@colors, {
         //個別ビデオメニュー
         .menuitem.@{key} {
             background-color: @value;
