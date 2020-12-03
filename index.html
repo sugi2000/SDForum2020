@@ -21,47 +21,12 @@
     <script src="//aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script sync>
         var videos = {};
+        var items = {};
         fetch('videos.json')
             .then(response => response.json())
-            .then(data => { videos = data });
+            .then(data => { videos = data.depertment; items = data.faculty; });
     </script>
     <script defer>
-        //学部学科紹介動画 YouTubeID
-        var items = {
-            "sd": "uT3SBzmDxGk",
-            "cs": "Xj3gU3jACe8",
-            "eecs": "N-YuSKeFMxY",
-            "mech": "DMTPHiDcIyU",
-            "aerospace": "qfGggAGITwg",
-            "industrialart": "x8yymm3DtVA"
-        };
-        /* 研究室紹介動画フォーマット例
-        var videos = {
-            "sd": [],
-            "cs": [
-                {
-                    "name": "高間康史",
-                    "position": "教授",
-                    "title": "Webインテリジェンス～多様な情報を知的に活用する技術～",
-                    "keyword": "レコメンデーション，Human in the loop，情報可視化",
-                    "youtube": "vOtxweLK1kQ",
-                    "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
-                },
-                {
-                    "name": "松田崇弘",
-                    "position": "教授",
-                    "title": "ドローンによる高信頼無線ネットワーク構築技術",
-                    "keyword": "無線ネットワーク，ドローン，ネットワーク計測技術, 波源推定技術",
-                    "youtube": "35ps_G_VEnI",
-                    "picture": "//cs.sd.tmu.ac.jp/image/matsuda_prof.jpg"
-                }
-            ],
-            "eecs": [],
-            "mech": [],
-            "aerospace": [],
-            "industrialart": []
-        };
-        */
         let player = {};
         let ready = false;
 
@@ -120,6 +85,11 @@
                         document.querySelector('.' + faculty + '[type=radio]').checked = true;
                     }
                     if (videos[faculty] && document.querySelector('section.' + faculty + ' ul.labos')) {
+                        videos[faculty].sort(
+                            function () {
+                                return Math.random() - 0.5;
+                            }
+                        );
                         videos[faculty].forEach((v) => {
                             console.log("V YOUTUBE:", v.youtube);
                             if (v.youtube == "") { return; }
