@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>SDForum 2020 - 東京都立大学システムデザイン学部</title>
     <link rel="stylesheet/less" type="text/css" href="sdforum2020.less" />
     <script>
         (function (d) {
@@ -17,6 +18,7 @@
     <script src="//kit.fontawesome.com/1337fa5d50.js" crossorigin="anonymous"></script>
     <script src="//www.youtube.com/iframe_api"></script>
     <script src="//cdn.jsdelivr.net/npm/less"></script>
+    <script src="//aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script sync>
         var videos = {};
         fetch('videos.json')
@@ -181,6 +183,13 @@
     <article class="detail">
         <section class="sd">
             <h1>東京都立大学 システムデザイン学部</h1>
+            <div class="panoramabanner">
+                <a-scene vr-mode-ui="enabled: false" embedded>
+                    <a-sky src="panorama_s.jpg" rotation="0 100 -8"> </a-sky>
+                    <a-camera reverse-mouse-drag="true" fov="50" position="0 0 0"></a-camera>
+                </a-scene>
+            </div>
+            <div class="panoramalink">[<a href="panorama.html">高解像度でキャンパスを覗いてみる</a>]</div>
             <h2>学部紹介</h2>
             <p>
                 本学部の最大の特徴は、現在の都市社会に必要なシステムだけでなく次世代や近未来の実現を目指す様々なシステムを、数理的、システム工学的なアプローチはもちろんのこと、人間の感性を重視したデザイン工学的なアプローチからも総合的に教育研究するという点です。
@@ -269,18 +278,18 @@
     <div id="card-template">
         <ui class="labo">
             <div class="labo-base">
-            <div class="labo-video"></div>
-            <div class="labo-contents">
-                <div class="labo-title"></div>
-                <div class="labo-keyword"></div>
-            </div>
-            <div class="labo-prof">
-                <span class="labo-name-wrap">
-                    <span class="labo-name"></span>
-                    <small class="labo-position"></small>
-                </span>
-                <img class="labo-face">
-            </div>
+                <div class="labo-video"></div>
+                <div class="labo-contents">
+                    <div class="labo-title"></div>
+                    <div class="labo-keyword"></div>
+                </div>
+                <div class="labo-prof">
+                    <span class="labo-name-wrap">
+                        <span class="labo-name"></span>
+                        <small class="labo-position"></small>
+                    </span>
+                    <img class="labo-face">
+                </div>
             </div>
         </ui>
     </div>

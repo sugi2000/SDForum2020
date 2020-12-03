@@ -86,6 +86,7 @@ iframe {
     position: relative;
     margin: 1vw auto;
     box-shadow: 0 0 0.8vw gray;
+    background: @color-forum;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -220,7 +221,7 @@ article.detail {
         h1 {
             .font-faculty-bold;
             text-align: center;
-            font-size: 4vw;
+            font-size: 2.5em;
         }
 
         h2,
@@ -309,13 +310,63 @@ article.detail {
     }
 }
 
+.panoramabanner{
+    width:100%;
+    height:250px;
+}
+.panoramalink{
+    text-align:right;
+}
+
 @media screen and (orientation: portrait) {
     article.detail>section ui.labo {
         width: 100%;
     }
+
+    .menuitem {
+        font-size: 4.4vw;
+    }
+
+    .video {
+        top: calc(10 * @width-wrap / 16);
+    }
+
+    #wrapp {
+        height: calc(20 * @width-wrap / 16);
+    }
+    #mode:not(:checked)~#wrapp {
+        &>.video {
+            transition:unset;
+            transform: unset;
+        }
+    
+        &>.video>.videocover {
+            display: none;
+        }
+    }
+    #mode:checked~#wrapp {
+        &>.video {
+            transform: unset;
+            transform-origin: unset;
+            transition: unset;
+            clip-path: unset;
+        }
+
+        &>.video>.videocover {
+            display: block;
+        }
+
+    }
+    .videoclose {
+        display: none!important;
+        cursor: unset!important;
+    }
 }
 
+
+
 each(@colors, {
+
         //個別ビデオメニュー
         .menuitem.@{key} {
             background-color: @value;
