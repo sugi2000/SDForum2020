@@ -34,6 +34,12 @@
         let ready = false;
 
         function onYouTubeIframeAPIReady() {
+            if (location.hash != "") {
+                let f = location.hash.replace(/^\#/, '');
+                if (document.querySelector(".videoselector." + f)) {
+                    document.querySelector(".videoselector." + f).checked = true;
+                }
+            }
             ready = true;
             let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
             console.log(originURL);
@@ -67,6 +73,7 @@
                 ele.addEventListener('click', function () {
                     let faculty = this.getAttribute('x-item');
                     console.log(faculty);
+                    history.pushState('', '', "#" + faculty);
                     if (ready && !player.hasOwnProperty(faculty)) {
                         document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.add('kurukuru') });
                         let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
