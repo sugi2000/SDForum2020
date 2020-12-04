@@ -18,7 +18,6 @@ function onYouTubeIframeAPIReady() {
             items = data.faculty;
             let showLaboVideo = (faculty) => {
                 videos[faculty].forEach((v) => {
-                    console.log("V YOUTUBE:", v.youtube);
                     if (v.youtube == "") { return; }
                     let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
                     tpl.querySelector('.labo-video').id = v.youtube;
@@ -97,8 +96,7 @@ function onYouTubeIframeAPIReady() {
                 ele.addEventListener('click', function (e) {
                     e.stopPropagation();
                     let faculty = this.getAttribute('x-item');
-                    history.pushState('', '', "#" + faculty);                    
-                    console.log(faculty);
+                    history.pushState('', '', "#" + faculty);     
                     if (!opened.hasOwnProperty(faculty) && videos.hasOwnProperty(faculty)) {
                         showLaboVideo(faculty);
                         opened[faculty] = true;
@@ -106,8 +104,6 @@ function onYouTubeIframeAPIReady() {
                     document.querySelector('.' + faculty + '[type=radio]').checked = true;
                     Object.keys(items).forEach(p => {
                         if (player.hasOwnProperty(p)) {
-                            console.log("pause " + p);
-                            console.log(player[p]);
                             player[p].pauseVideo();
                         }
                     });
