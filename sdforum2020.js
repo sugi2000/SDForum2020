@@ -95,8 +95,8 @@ function onYouTubeIframeAPIReady() {
             }, false);
             document.querySelectorAll('.menuitem').forEach((ele) => {
                 ele.addEventListener('click', function (e) {
-                    console.log("menu click:", e);
                     e.stopPropagation();
+                    history.pushState('', '', "#" + faculty);
                     let faculty = this.getAttribute('x-item');
                     console.log(faculty);
                     if (!opened.hasOwnProperty(faculty) && videos.hasOwnProperty(faculty)) {
@@ -111,7 +111,7 @@ function onYouTubeIframeAPIReady() {
                             player[p].pauseVideo();
                         }
                     });
-                    history.pushState('', '', "#" + faculty);
+                    
                 });
             }, false);
             let defFaculty = (location.hash == "") ? "sd" : location.hash.replace(/^\#/, '');
