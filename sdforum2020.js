@@ -96,8 +96,8 @@ function onYouTubeIframeAPIReady() {
             document.querySelectorAll('.menuitem').forEach((ele) => {
                 ele.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    history.pushState('', '', "#" + faculty);
                     let faculty = this.getAttribute('x-item');
+                    history.pushState('', '', "#" + faculty);                    
                     console.log(faculty);
                     if (!opened.hasOwnProperty(faculty) && videos.hasOwnProperty(faculty)) {
                         showLaboVideo(faculty);
