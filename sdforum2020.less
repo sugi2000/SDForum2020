@@ -64,7 +64,7 @@ iframe {
 }
 
 .kurukuru {
-    cursor: wait!important;
+    cursor: wait !important;
 }
 
 #title {
@@ -175,7 +175,7 @@ iframe {
         transform: translateX(10vw) scale(0.6);
         transform-origin: right center;
         transition: all .5s ease-in-out;
-        clip-path: polygon(0 15%, 100% 10%, 100% 90%, 0 85%);
+        clip-path: polygon(0 5%, 100% 5%, 100% 95%, 0 95%);
     }
 
     &>.video>.videocover {
@@ -261,7 +261,22 @@ article.detail {
 
             .labo-video {
                 width: 100%;
-                _margin-top: 10px;
+                min-height: 300px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+                text-align:center;
+                line-height:300px;
+                i{
+                    text-shadow: 0 0 5px #fff5, 0 0 10px #fff5, 0 0 15px #fff5, 0 0 20px #ff00de55, 0 0 35px #ff00de55, 0 0 40px #ff00de55, 0 0 50px #ff00de55, 0 0 75px #ff00de55;
+                    color: #FF0000;
+                    font-size:4em;
+                    border-radius: 5px;
+                    &:hover{
+                        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+                    }
+                }
             }
 
             .labo-contents {
@@ -310,12 +325,13 @@ article.detail {
     }
 }
 
-.panoramabanner{
-    width:100%;
-    height:250px;
+.panoramabanner {
+    width: 100%;
+    height: 250px;
 }
-.panoramalink{
-    text-align:right;
+
+.panoramalink {
+    text-align: right;
 }
 
 
@@ -335,16 +351,18 @@ article.detail {
     #wrapp {
         height: calc(20 * @width-wrap / 16);
     }
+
     #mode:not(:checked)~#wrapp {
         &>.video {
-            transition:unset;
+            transition: unset;
             transform: unset;
         }
-    
+
         &>.video>.videocover {
             display: none;
         }
     }
+
     #mode:checked~#wrapp {
         &>.video {
             transform: unset;
@@ -358,9 +376,10 @@ article.detail {
         }
 
     }
+
     .videoclose {
-        display: none!important;
-        cursor: unset!important;
+        display: none !important;
+        cursor: unset !important;
     }
 }
 
