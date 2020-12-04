@@ -54,7 +54,7 @@
             if (location.hash != "") {
                 let f = location.hash.replace(/^\#/, '');
                 if (document.querySelector(".videoselector." + f)) {
-                    console.log("go to "+ f);
+                    console.log("go to " + f);
                     document.querySelector(".videoselector." + f).checked = true;
                     showVideo(f);
                 }
@@ -92,6 +92,13 @@
                 ele.addEventListener('click', function () {
                     let faculty = this.getAttribute('x-item');
                     console.log(faculty);
+                    Object.keys(items).forEach(p => {
+                        if (player[p] && (player[p].getPlayerState() == YT.PlayerState.PLAYING ||
+                            player[p].getPlayerState() == YT.PlayerState.BUFFERING ||
+                            player[p].getPlayerState() == YT.PlayerState.CUED)) {
+                            player[p].pauseVideo();
+                        }
+                    });
                     history.pushState('', '', "#" + faculty);
                     if (ready && !player.hasOwnProperty(faculty)) {
                         showVideo(faculty);
