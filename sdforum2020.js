@@ -1,4 +1,4 @@
-let videoJson = 'videos.json';
+
 let videos = {};
 let items = {};
 let player = {};
