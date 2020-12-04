@@ -34,10 +34,29 @@
         let ready = false;
 
         function onYouTubeIframeAPIReady() {
+            let showVideo = (faculty) => {
+                document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.add('kurukuru') });
+                let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
+                player[faculty] = new YT.Player('player_' + faculty, {
+                    videoId: items[faculty],
+                    width: "1024px",
+                    playerVars: {
+                        rel: 0,
+                        'enablejsapi': 1,
+                        'origin': originURL
+                    }
+                });
+                setTimeout((id) => {
+                    document.querySelector('.' + id + '[type=radio]').checked = true;
+                    document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.remove('kurukuru') });
+                }, 100, faculty);
+            }
             if (location.hash != "") {
                 let f = location.hash.replace(/^\#/, '');
                 if (document.querySelector(".videoselector." + f)) {
+                    console.log("go to "+ f);
                     document.querySelector(".videoselector." + f).checked = true;
+                    showVideo(f);
                 }
             }
             ready = true;
@@ -75,22 +94,7 @@
                     console.log(faculty);
                     history.pushState('', '', "#" + faculty);
                     if (ready && !player.hasOwnProperty(faculty)) {
-                        document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.add('kurukuru') });
-                        let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
-                        console.log(originURL);
-                        player[faculty] = new YT.Player('player_' + faculty, {
-                            videoId: items[faculty],
-                            width: "1024px",
-                            playerVars: {
-                                rel: 0,
-                                'enablejsapi': 1,
-                                'origin': originURL
-                            }
-                        });
-                        setTimeout((id) => {
-                            document.querySelector('.' + id + '[type=radio]').checked = true;
-                            document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.remove('kurukuru') });
-                        }, 500, faculty);
+                        showVideo(faculty);
                     } else {
                         document.querySelector('.' + faculty + '[type=radio]').checked = true;
                     }
