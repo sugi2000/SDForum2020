@@ -92,6 +92,19 @@ function onYouTubeIframeAPIReady() {
                     }
                 });
             }, false);
+            window.addEventListener('popstate', function(e) {
+                let newFaculty = (location.hash == "") ? "sd" : location.hash.replace(/^\#/, '');   
+                if (!opened.hasOwnProperty(newFaculty) && videos.hasOwnProperty(newFaculty)) {
+                    showLaboVideo(newFaculty);
+                    opened[facunewFacultylty] = true;
+                }
+                document.querySelector('.' + newFaculty + '[type=radio]').checked = true;
+                Object.keys(items).forEach(p => {
+                    if (player.hasOwnProperty(p)) {
+                        player[p].pauseVideo();
+                    }
+                });
+            });
             document.querySelectorAll('.menuitem').forEach((ele) => {
                 ele.addEventListener('click', function (e) {
                     e.stopPropagation();
