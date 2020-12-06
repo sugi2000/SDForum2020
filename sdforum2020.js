@@ -1,8 +1,17 @@
-let videos = {};
-let items = {};
-let player = {};
+let videosLabo = {};
+let videosFaculty = {};
+let playerLabo = {};
+let playerFaculty = {};
 let opened = {};
-let viewed = {};
+const name = "システムデザインフォーラム2020";
+const title = {
+    "sd": "システムデザイン学部 - " + name + " @東京都立大学",
+    "cs": "情報科学科 - " + name + " @東京都立大学システムデザイン学部",
+    "eecs": "電子情報システム工学科 - " + name + " @東京都立大学システムデザイン学部",
+    "mech": "機械システム工学科 - " + name + " @東京都立大学システムデザイン学部",
+    "aerospace": "航空宇宙システム工学科 - " + name + " @東京都立大学システムデザイン学部",
+    "industrialart": "インダストリアルアート学科 - " + name + " @東京都立大学システムデザイン学部",
+};
 let ready = false;
 let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
 let tag = document.createElement('script');
@@ -14,10 +23,28 @@ function onYouTubeIframeAPIReady() {
     fetch(videoJson)
         .then(response => response.json())
         .then(data => {
-            videos = data.depertment;
-            items = data.faculty;
+            videosLabo = data.depertment;
+            videosFaculty = data.faculty;
+            let newPage = (faculty)=>{
+                history.pushState('', '', "#" + faculty);
+                document.title =  title[faculty];
+                console.log(title[faculty]);
+            };
+            let pauseAllVideo = (ignoreID = false) => {
+                console.log("pause all videos");
+                Object.keys(playerFaculty).forEach((faculty) => {
+                    if (typeof playerFaculty[faculty].pauseVideo == 'function' && ignoreID != faculty) {
+                        playerFaculty[faculty].pauseVideo();
+                    }
+                });
+                Object.keys(playerLabo).forEach((id) => {
+                    if (typeof playerLabo[id].pauseVideo == 'function' && ignoreID != id) {
+                        playerLabo[id].pauseVideo();
+                    }
+                });
+            };
             let showLaboVideo = (faculty) => {
-                videos[faculty].forEach((v) => {
+                videosLabo[faculty].forEach((v) => {
                     if (v.youtube == "") { return; }
                     let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
                     tpl.querySelector('.labo-video').id = v.youtube;
@@ -25,9 +52,10 @@ function onYouTubeIframeAPIReady() {
                     tpl.querySelector('.labo-video').addEventListener('click', (e) => {
                         e.stopPropagation();
                         console.log('Click:', e.currentTarget.id);
-                        if (!viewed.hasOwnProperty(e.currentTarget.id)) {
+                        if (!playerLabo.hasOwnProperty(e.currentTarget.id)) {
                             let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
-                            viewed[e.currentTarget.id] = new YT.Player(e.currentTarget.id, {
+                            let id = e.currentTarget.id
+                            playerLabo[e.currentTarget.id] = new YT.Player(e.currentTarget.id, {
                                 videoId: e.currentTarget.id,
                                 width: "600px",
                                 playerVars: {
@@ -36,13 +64,17 @@ function onYouTubeIframeAPIReady() {
                                     'origin': originURL
                                 },
                                 events: {
-                                    'onReady': (e) => {
-                                        e.target.playVideo();
+                                    'onReady': (evt) => {
+                                        evt.target.playVideo();
+                                    },
+                                    'onStateChange': (evt) => {
+                                        if (evt.data == 1) {
+                                            pauseAllVideo(id);
+                                        }
                                     }
                                 }
                             });
                         }
-
                     });
                     tpl.querySelector('.labo-name').innerText = v.name;
                     tpl.querySelector('.labo-position').innerText = v.position;
@@ -52,11 +84,11 @@ function onYouTubeIframeAPIReady() {
                     document.querySelector('section.' + faculty + ' ul.labos').appendChild(tpl);
                 });
             }
-            let showVideo = (faculty, ignoreLaboVideo = false, callback = function(){ }) => {
+            let showVideo = (faculty, ignoreLaboVideo = false, callback = function () { }) => {
                 document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.add('kurukuru') });
                 let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
-                player[faculty] = new YT.Player('player_' + faculty, {
-                    videoId: items[faculty],
+                playerFaculty[faculty] = new YT.Player('player_' + faculty, {
+                    videoId: videosFaculty[faculty],
                     width: "600px",
                     playerVars: {
                         rel: 0,
@@ -65,11 +97,16 @@ function onYouTubeIframeAPIReady() {
                     }, events: {
                         'onReady': () => {
                             document.querySelectorAll('.menuitem').forEach((ele) => { ele.classList.remove('kurukuru') });
-                            if (!ignoreLaboVideo && !opened.hasOwnProperty(faculty) && videos.hasOwnProperty(faculty)) {
+                            if (!ignoreLaboVideo && !opened.hasOwnProperty(faculty) && videosLabo.hasOwnProperty(faculty)) {
                                 showLaboVideo(faculty);
                                 opened[faculty] = true;
                             }
                             callback();
+                        },
+                        'onStateChange': (evt) => {
+                            if (evt.data == 1) {
+                                pauseAllVideo(faculty);
+                            }
                         }
                     }
                 });
@@ -77,62 +114,49 @@ function onYouTubeIframeAPIReady() {
             document.querySelector('.video').addEventListener('click', (e) => {
                 e.stopPropagation();
                 document.querySelector('#mode').checked = !document.querySelector('#mode').checked;
-                if (document.querySelector('#mode').checked) {
-                    Object.keys(player).forEach((p) => {
-                        player[p].pauseVideo();
-                    });
-                }
-                Object.keys(items).forEach((p) => {
-                    if (document.querySelector('.videoselector.' + p).checked) {
+                Object.keys(videosFaculty).forEach((faculty) => {
+                    if (document.querySelector('.videoselector.' + faculty).checked) {
                         if (document.querySelector('#mode').checked) {
-                            player[p].pauseVideo();
+                            playerFaculty[faculty].pauseVideo();
                         } else {
-                            player[p].playVideo();
+                            pauseAllVideo();
+                            playerFaculty[faculty].playVideo();
                         }
                     }
                 });
             }, false);
-            window.addEventListener('popstate', function(e) {
-                let newFaculty = (location.hash == "") ? "sd" : location.hash.replace(/^\#/, '');   
-                if (!opened.hasOwnProperty(newFaculty) && videos.hasOwnProperty(newFaculty)) {
+            window.addEventListener('popstate', function (e) {
+                let newFaculty = (location.hash == "") ? "sd" : location.hash.replace(/^\#/, '');
+                pauseAllVideo();
+                if (!opened.hasOwnProperty(newFaculty) && videosLabo.hasOwnProperty(newFaculty)) {
                     showLaboVideo(newFaculty);
-                    opened[facunewFacultylty] = true;
+                    opened[newFaculty] = true;
                 }
                 document.querySelector('.' + newFaculty + '[type=radio]').checked = true;
-                Object.keys(items).forEach(p => {
-                    if (player.hasOwnProperty(p)) {
-                        player[p].pauseVideo();
-                    }
-                });
             });
             document.querySelectorAll('.menuitem').forEach((ele) => {
                 ele.addEventListener('click', function (e) {
                     e.stopPropagation();
                     let faculty = this.getAttribute('x-item');
-                    history.pushState('', '', "#" + faculty);     
-                    if (!opened.hasOwnProperty(faculty) && videos.hasOwnProperty(faculty)) {
+                    newPage(faculty);
+                    if (!opened.hasOwnProperty(faculty) && videosLabo.hasOwnProperty(faculty)) {
                         showLaboVideo(faculty);
                         opened[faculty] = true;
                     }
                     document.querySelector('.' + faculty + '[type=radio]').checked = true;
-                    Object.keys(items).forEach(p => {
-                        if (player.hasOwnProperty(p)) {
-                            player[p].pauseVideo();
-                        }
-                    });
-                    
+                    pauseAllVideo();
                 });
             }, false);
             let defFaculty = (location.hash == "") ? "sd" : location.hash.replace(/^\#/, '');
             document.querySelector('.' + defFaculty + '[type=radio]').checked = true;
             showVideo(defFaculty, false, () => {
-                Object.keys(items).forEach((faculty) => {
+                Object.keys(videosFaculty).forEach((faculty) => {
                     if (defFaculty != faculty) {
                         showVideo(faculty, true);
                     }
                 });
             });
-
+            newPage((location.hash == "") ? "sd" : location.hash.replace(/^\#/, ''));
             ready = true;
         });
 }
