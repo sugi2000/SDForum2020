@@ -41,6 +41,11 @@
     font-style: normal;
 }
 
+.draft {
+    color:red;
+    background-color: lightgreen;
+}
+
 html body {
     .font-base;
     margin: 0;
@@ -138,6 +143,7 @@ iframe {
         width: 100%;
         height: 100%;
         cursor: zoom-in;
+        box-shadow: 0px 8px 16px -2px rgba(10,10,10,0.1), 11px 13px 33px 5px rgba(10,10,10,0.9) inset;
     }
 
     .videoclose {
@@ -346,6 +352,9 @@ article.detail {
 
     .video {
         top: calc(10 * @width-wrap / 16);
+    }
+    .videocover{
+        cursor:unset;
     }
 
     #wrapp {
