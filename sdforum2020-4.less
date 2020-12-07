@@ -1,0 +1,447 @@
+@width-wrap: 80vw;
+
+@color-forum: #393e4f;
+
+@colors: {
+    sd: #5fbcf4;
+    cs: #006543;
+    eecs: #FCD900;
+    mech: #5E3862;
+    aerospace: #2A4073;
+    industrialart: #8F2E14;
+}
+
+.font-h() {
+    font-family: vdl-logomaru-jr, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font-title() {
+    font-family: vdl-logojrblack, sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.font-faculty() {
+    font-family: toppan-bunkyu-midashi-min-st,serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.font-faculty-bold() {
+    font-family: toppan-bunkyu-midashi-min-st,serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.font-base() {
+    font-family: vdl-v7mincho, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.draft {
+    color:red;
+    background-color: lightgreen;
+}
+
+html body {
+    .font-base;
+    margin: 0;
+}
+
+iframe {
+    border: unset;
+}
+
+.hiddeninput {
+    display: none;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.kurukuru {
+    cursor: wait !important;
+}
+
+#title {
+    background: @color-forum;
+    color: white;
+    .font-title;
+    font-size: 3vw;
+    height: 5vw;
+    line-height: 5vw;
+    text-align: center;
+}
+
+#wrapp {
+    width: @width-wrap;
+    height: calc(10 * @width-wrap / 16);
+    top: 0;
+    right: 0;
+    left: 0;
+    position: relative;
+    margin: 1vw auto;
+    box-shadow: 0 0 0.8vw gray;
+    background: @color-forum;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.menuitem {
+    cursor: pointer;
+    color: white;
+    height: calc(45vw / 6);
+    line-height: calc(45vw / 6);
+    font-size: 3vw;
+    .font-faculty;
+    text-shadow:
+        2px 2px 1px @color-forum,
+        -2px 2px 1px @color-forum,
+        2px -2px 1px @color-forum,
+        -2px -2px 1px @color-forum,
+        2px 0px 1px @color-forum,
+        0px 2px 1px @color-forum,
+        -2px 0px 1px @color-forum,
+        0px -2px 1px @color-forum;
+
+    span {
+        height: calc(45vw / 6);
+        line-height: calc(45vw / 6);
+        display: inline-block;
+    }
+}
+
+
+.video {
+    position: absolute;
+    top: 5vw;
+    left: 0px;
+    width: 100%;
+    height: 45vw;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transition: all 1s ease-in-out;
+
+    .videoitem {
+        width: 100%;
+        height: 100%;
+        background-color: black;
+    }
+
+    .videocover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: zoom-in;
+        box-shadow: 0px 8px 16px -2px rgba(10,10,10,0.1), 11px 13px 33px 5px rgba(10,10,10,0.9) inset;
+    }
+
+    .videoclose {
+        display: block;
+        cursor: zoom-out;
+    }
+
+    &>.videoitem {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &>.videoclose {
+        height: 4vw;
+        width: 4vw;
+        font-size: 3vw;
+        line-height: 4vw;
+        text-align: center;
+        color: white;
+        background: black;
+        position: absolute;
+        left: 100%;
+        top: calc(calc(45vw / 2) - 2vw);
+        margin-left: -4vw;
+        border-radius: 10px 0px 0px 10px;
+    }
+}
+
+//Video縮小中-------------------------------------------------------------------------------
+#mode:checked~#wrapp {
+    &>.video {
+        transform: translateX(10vw) scale(0.6);
+        transform-origin: right center;
+        transition: all 1s ease-in-out;
+        clip-path: polygon(0 5%, 100% 5%, 100% 95%, 0 95%);
+    }
+
+    &>.video>.videocover {
+        display: block;
+    }
+
+}
+
+//Video拡大中-------------------------------------------------------------------------------
+#mode:not(:checked)~#wrapp {
+    &>.video {
+        transition: all 1s ease-in-out;
+        transform: translateX(0%) rotateY(00deg);
+    }
+
+    &>.video>.videocover {
+        display: none;
+    }
+}
+
+//個別ビデオ非選択時
+.videoselector:not(:checked)~#wrapp {
+    &>.video>.videoitem {
+        transition: all 1s ease-in-out;
+        transform: translateX(101%);
+    }
+}
+
+article.detail {
+    word-break: break-all;
+    padding: 0 10vw;
+
+    &>section {
+        display: none;
+        width: 100%;
+
+        p {
+            text-indent: 1em;
+            text-align: justify;
+            text-justify: inter-ideograph;
+        }
+
+        h1 {
+            .font-faculty-bold;
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            .font-h;
+            text-align: center;
+        }
+
+        ul.labos {
+            display: flex;
+            justify-content: space-between;
+            align-content: space-between;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ui.labo {
+            margin-bottom: 2rem;
+            width: calc(50% - 2vw);
+            border-radius: 10px;
+            box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+
+            .labo-base {
+                background: whitesmoke;
+                margin: 10px 0px;
+                justify-content: space-between;
+                display: flex;
+                flex-direction: column;
+                height: calc(100% - 20px);
+            }
+
+            .labo-video {
+                width: 100%;
+                min-height: 360px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+                text-align:center;
+                line-height:300px;
+                i{
+                    text-shadow: 0 0 5px #fff5, 0 0 10px #fff5, 0 0 15px #fff5, 0 0 20px #ff00de55, 0 0 35px #ff00de55, 0 0 40px #ff00de55, 0 0 50px #ff00de55, 0 0 75px #ff00de55;
+                    color: #FF0000;
+                    font-size:4em;
+                    border-radius: 5px;
+                    &:hover{
+                        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+                    }
+                }
+            }
+
+            .labo-contents {
+                padding: 0 1rem;
+
+                .labo-title {
+                    text-align: center;
+                }
+
+                .labo-keyword {
+                    text-align: center;
+                    color: gray;
+                    font-size: 0.7rem;
+
+                    &:before {
+                        content: "Keywords: ";
+                    }
+                }
+
+            }
+
+            .labo-prof {
+                text-align: right;
+                _margin-bottom: 1rem;
+                _background: whitesmoke;
+                _margin-bottom: 10px;
+                padding: 0 1rem;
+
+                img.labo-face {
+                    vertical-align: middle;
+                    width: 20%;
+                    clip-path: circle(50% at center);
+                }
+
+                span.labo-name-wrap {
+                    vertical-align: middle;
+                    font-size: 2rem;
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+
+    #card-template {
+        display: none;
+    }
+}
+
+.panoramabanner {
+    width: 100%;
+    height: 250px;
+}
+
+.panoramalink {
+    text-align: right;
+}
+
+
+@media screen and (orientation: portrait) {
+    article.detail>section ui.labo {
+        width: 100%;
+    }
+
+    .menuitem {
+        font-size: 4.4vw;
+    }
+
+    .video {
+        top: calc(10 * @width-wrap / 16);
+    }
+    .videocover{
+        cursor:unset;
+    }
+
+    #wrapp {
+        height: calc(20 * @width-wrap / 16);
+    }
+
+    #mode:not(:checked)~#wrapp {
+        &>.video {
+            transition: unset;
+            transform: unset;
+        }
+
+        &>.video>.videocover {
+            display: none;
+        }
+    }
+
+    #mode:checked~#wrapp {
+        &>.video {
+            transform: unset;
+            transform-origin: unset;
+            transition: unset;
+            clip-path: unset;
+        }
+
+        &>.video>.videocover {
+            display: block;
+        }
+
+    }
+
+    .videoclose {
+        display: none !important;
+        cursor: unset !important;
+    }
+}
+
+
+
+each(@colors, {
+
+        //個別ビデオメニュー
+        .menuitem.@{key} {
+            background-color: @value;
+
+            &:hover {
+                background:tint(@value, 50%);
+            }
+        }
+
+        //個別ビデオ選択時
+        .videoselector.@{key}:checked {
+            &~#bg {
+                background: linear-gradient(355deg, tint(@value, 90%, relative) 0%, rgba(255, 255, 255, 1) 73%);
+            }
+
+            &~#wrapp {
+                &>.menuitem.@{key}>span {
+                    background:darken(@value, 30%, relative);
+                    transition: background 1s ease-in-out;
+                }
+
+                &>.menuitem.@{key} {
+                    background: linear-gradient(0deg, @value 47%, lighten(@value, 20%, relative) 48%, lighten(@value, 20%, relative) 52%, @value 53%);
+                }
+
+                &>.video>.@{key} {
+                    transition: all 1s ease-in-out;
+                    transform: translateX(0%);
+                }
+            }
+
+            &~article.detail>section.@{key} {
+                display: block;
+
+                .labo {
+                    background:@value;
+                }
+            }
+        }
+
+        //個別本文
+        article.detail>section.@{key} {
+            h1 {
+                color:@value;
+            }
+        }
+    }
+
+);
