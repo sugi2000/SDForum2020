@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
     <title>システムデザインフォーラム2020 - 東京都立大学システムデザイン学部</title>
     <meta property="og:title" content="SDForum 2020 - 東京都立大学システムデザイン学部" />
     <meta property="og:description" content="SDForumは・・・・" />
@@ -12,8 +11,7 @@
     <script>
         // URL for Video list
         let videoJson = 'videos.json';
-        //let videoJson = 'https://www.seeds.sd.tmu.ac.jp/index/2020-coming-soon/video-data/';
-        //let videoJson = 'https://www.seeds.sd.tmu.ac.jp/index/2020/video-data/';
+
         (function (d) {
             var config = {
                 kitId: 'otn7ddv',
@@ -64,7 +62,8 @@
             <div class="panoramabanner">
                 <a-scene vr-mode-ui="enabled: false" embedded>
                     <a-sky src="panorama_s.jpg" rotation="0 100 -8"> </a-sky>
-                    <a-camera reverse-mouse-drag="true" fov="50" position="0 0 0" animation="property: rotation;
+                    <a-camera reverse-mouse-drag="true" fov="50" position="0 0 0" 
+                        animation="property: rotation;
                             from: 0 0 0;
                             to: 0 360 0;
                             dur: 300000;
@@ -187,9 +186,7 @@
                             <span class="labo-name"></span>
                             <small class="labo-position"></small>
                         </span>
-                        <div class="labo-face-frame">
-                            <img class="labo-face">
-                        </div>
+                        <img class="labo-face">
                     </div>
                 </div>
             </ui>
@@ -197,4 +194,4 @@
     </div>
 </body>
 
-</htm
+</html>

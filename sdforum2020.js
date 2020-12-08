@@ -25,9 +25,9 @@ function onYouTubeIframeAPIReady() {
         .then(data => {
             videosLabo = data.depertment;
             videosFaculty = data.faculty;
-            let newPage = (faculty)=>{
+            let newPage = (faculty) => {
                 history.pushState('', '', "#" + faculty);
-                document.title =  title[faculty];
+                document.title = title[faculty];
                 console.log(title[faculty]);
             };
             let pauseAllVideo = (ignoreID = false) => {
@@ -80,7 +80,16 @@ function onYouTubeIframeAPIReady() {
                     tpl.querySelector('.labo-position').innerText = v.position;
                     tpl.querySelector('.labo-title').innerText = v.title;
                     tpl.querySelector('.labo-keyword').innerText = v.keyword;
-                    tpl.querySelector('.labo-face').src = v.picture;
+                    if (v.picture == "") {
+                        const dammyFace = document.createElement("i");
+                        dammyFace.classList.add("fas");
+                        dammyFace.classList.add("fa-users");
+                        dammyFace.classList.add("labo-face");
+                        tpl.querySelector('img.labo-face').after(dammyFace);
+                        tpl.querySelector('img.labo-face').style.display = "none";
+                    } else {
+                        tpl.querySelector('.labo-face').src = v.picture;
+                    }
                     document.querySelector('section.' + faculty + ' ul.labos').appendChild(tpl);
                 });
             }

@@ -8,7 +8,7 @@
         "industrialart": "LIyTG4uj6Sc"
     },
     "depertment": {
-        "cs": [
+        "cs":[
             {
                 "name": "高間康史",
                 "position": "教授",
@@ -97,8 +97,9 @@
                 "youtube": "_KUcVAcS1cM",
                 "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
             }
+
         ],
-        "eecs": [
+        "eecs":[
             {
                 "name": "朝香卓也",
                 "position": "教授",
@@ -280,7 +281,7 @@
                 "position": "教授",
                 "title": "ハードウェアとシミュレーションを結合し、新たな工学領域をイメージする",
                 "keyword": "圧電デバイス、発振回路、生体工学",
-                "youtube": "https://sites.google.com/view/tmuee/",
+                "youtube": "",
                 "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
             },
             {
@@ -315,15 +316,16 @@
                 "youtube": "C_qOfjGukQU",
                 "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
             }
+
         ],
-        "mech": [
+        "mech":[
             {
                 "name": "生体機械領域",
                 "position": "",
                 "title": "機械システムに共通する基礎に加え、「医用工学・生体工学」や「人間工学・福祉工学」に関連する教育・研究を行います。人体を構成する細胞や臓器から、筋骨格系、身体の動きや活動まで、さまざまなレベルで工学的アプローチを生かし、「高レベルな健康の維持および医療の支援」をめざします。",
                 "keyword": "再生医工学、医用生体工学、生体シミュレーション、医療福祉機器、バイオメカニクス、リハビリテーション工学",
                 "youtube": "r_ehkts9mcc",
-                "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
+                "picture": ""
             },
             {
                 "name": "機械創成領域",
@@ -331,7 +333,7 @@
                 "title": "機械システムに共通する材料、加工、計測技術などの基礎とともに、「機能表面・ナノマイクロデバイス」や「機械材料・材料加工」に関連する教育・研究を行います。機械システムの基盤となる根本的な課題を掘り下げ、また実践を支える要素技術を研究します。",
                 "keyword": "ナノマイクロ加工、表面修飾技術、ナノマイクロ計測、ナノマイクロ流体、材料加工、塑性加工、機械材料、複合材料",
                 "youtube": "VMnZOXdwTKs",
-                "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
+                "picture": ""
             },
             {
                 "name": "知能機械領域",
@@ -339,11 +341,12 @@
                 "title": "機械システムに共通する基礎に加え、「機械制御・知能化システム」や「サービス情報・ロボット工学」に関連する教育・研究を行います。機械、情報、ソフトウェアなどさまざまなシステムを全体として考え、具現化し、動かすことを学び、「安全・安心で持続可能な社会」をめざします。",
                 "keyword": "機械力学、振動工学、適応・ロバスト制御、非線形制御、サービス工学、ウェブ情報、知能ロボット、医療福祉ロボット",
                 "youtube": "3Py0HjMh2V8",
-                "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
+                "picture": ""
             }
+
         ],
-        "aerospace": [
-            {
+        "aerospace":[
+                    {
                 "name": "小澤啓伺",
                 "position": "准教授",
                 "title": "極超音速旅客機を実現しよう",
@@ -447,6 +450,7 @@
                 "youtube": "YrJlglvf-Iw",
                 "picture": "//cs.sd.tmu.ac.jp/image/takama_prof.jpg"
             }
+
         ]
     }
 }
