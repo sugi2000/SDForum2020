@@ -132,7 +132,7 @@ html body {
 	margin-top: 5em;
 	list-style: none;
 	font-size: 0.8em;
-	color: rgba(88, 88, 88, 0.5);
+	color: rgba(88, 88, 88, 0.75);
 }
 
 #footer>.inner .copyright a {
@@ -225,7 +225,8 @@ iframe {
     color: rgb(24, 26, 58);
     height: calc(45vw / 6);
     line-height: calc(45vw / 6);
-    font-size: 2vw;
+		font-size: 2vw;
+		letter-spacing: 0.25em;
     .font-faculty;
 
     span {
@@ -580,7 +581,7 @@ each(@colors, {
 
 /* Wrapper */
 
-body>*>.inner {
+#wrapper>*>.inner {
 	width: 100%;
 	max-width: 68em;
 	margin: 0 auto;
@@ -588,7 +589,7 @@ body>*>.inner {
 }
 
 @media screen and (max-width: 736px) {
-	body>*>.inner {
+	#wrapper>*>.inner {
 			padding: 0 1.25em;
 	}
 }
