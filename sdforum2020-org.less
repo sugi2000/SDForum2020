@@ -3,44 +3,40 @@
 @color-forum: #393e4f;
 
 @colors: {
-    sd: #e6e6e6;
-    cs: #b3e6c4;
-    eecs: #e6e6b3;
-    mech: #e0b8b8;
-    aerospace: #b3d5e6;
-    industrialart: #ebc2ad;
+    sd: #5fbcf4;
+    cs: #006543;
+    eecs: #FCD900;
+    mech: #5E3862;
+    aerospace: #2A4073;
+    industrialart: #8F2E14;
 }
 
-@title-font: "Noto Sans JP", Helvetica, sans-serif;
-@faculty-font: "Noto Sans JP", Helvetica, sans-serif;
-@base-font: "Noto Sans JP", Helvetica, sans-serif;
-
 .font-h() {
-    font-family: @title-font;
+    font-family: vdl-logomaru-jr, sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
 .font-title() {
-    font-family: @title-font;
-    font-weight: 400;
+    font-family: vdl-logojrblack, sans-serif;
+    font-weight: 900;
     font-style: normal;
 }
 
 .font-faculty() {
-    font-family: @faculty-font;
+    font-family: ta-houdate-m500, sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
 .font-faculty-bold() {
-    font-family: @faculty-font;
+    font-family: ta-houdate-m500, sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
 .font-base() {
-    font-family: @base-font;
+    font-family: vdl-v7mincho, sans-serif;
     font-weight: 300;
     font-style: normal;
 }
@@ -52,120 +48,7 @@
 
 html body {
     .font-base;
-		margin: 0;
-		color: #585858;
-		line-height: 1.75;
-}
-
-/* Header */
-
-#header {
-	padding: 1em 0 0.1em 0;
-}
-
-#header .logo {
-	display: block;
-	border-bottom: 0;
-	color: inherit;
-	font-weight: 900;
-	letter-spacing: 0.35em;
-	margin: 0 0 2.5em 0;
-	text-decoration: none;
-	text-transform: uppercase;
-	display: inline-block;
-}
-
-#header .logo>* {
-	display: inline-block;
-	vertical-align: middle;
-}
-
-#header .logo .symbol {
-	margin-right: 0.65em;
-}
-
-#header .logo .symbol img {
-	display: block;
-	width: 2em;
-	height: 2em;
-}
-
-/* Footer */
-
-#footer {
-	padding: 2em 0 2em 0;
-	background-color: #f6f6f6;
-}
-
-#footer>.inner {
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: -ms-flex;
-	display: flex;
-	-moz-flex-wrap: wrap;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-	-moz-flex-direction: row;
-	-webkit-flex-direction: row;
-	-ms-flex-direction: row;
-	flex-direction: row;
-}
-
-#footer>.inner>*> :last-child {
-	margin-bottom: 0;
-}
-
-#footer>.inner section:nth-child(1) {
-	width: calc(66% - 2.5em);
-	margin-right: 2.5em;
-}
-
-#footer>.inner section:nth-child(2) {
-	width: calc(33% - 2.5em);
-	margin-left: 2.5em;
-}
-
-#footer>.inner .copyright {
-	width: 100%;
-	padding: 0;
-	margin-top: 5em;
-	list-style: none;
-	font-size: 0.8em;
-	color: rgba(88, 88, 88, 0.5);
-}
-
-#footer>.inner .copyright a {
-	color: inherit;
-}
-
-#footer>.inner .copyright li {
-	display: inline-block;
-	border-left: solid 1px rgba(88, 88, 88, 0.15);
-	line-height: 1;
-	padding: 0 0 0 1em;
-	margin: 0 0 0 1em;
-}
-
-#footer>.inner .copyright li:first-child {
-	border-left: 0;
-	padding-left: 0;
-	margin-left: 0;
-}
-
-h1 {
-	font-size: 2em;
-	margin: 0 0 1em 0;
-}
-@media screen and (max-width: 736px) {
-	h1 {
-			font-size: 2em;
-	}
-}
-@media screen and (max-width: 360px) {
-	h1 {
-			font-size: 1.75em;
-	}
+    margin: 0;
 }
 
 iframe {
@@ -191,18 +74,12 @@ iframe {
 
 #title {
     background: @color-forum;
-    color: #c7c7c7;
+    color: white;
     .font-title;
     font-size: 3vw;
     height: 5vw;
     line-height: 5vw;
     text-align: center;
-}
-
-#wrapp-outer {
-	background-color: #eee;
-	padding: 2vw;
-	// box-shadow: 0 0 1.6vw inset;
 }
 
 #wrapp {
@@ -220,13 +97,21 @@ iframe {
 }
 
 .menuitem {
-		cursor: pointer;
-		padding-left: 1em;
-    color: rgb(24, 26, 58);
+    cursor: pointer;
+    color: white;
     height: calc(45vw / 6);
     line-height: calc(45vw / 6);
-    font-size: 2vw;
+    font-size: 3vw;
     .font-faculty;
+    text-shadow:
+        2px 2px 1px @color-forum,
+        -2px 2px 1px @color-forum,
+        2px -2px 1px @color-forum,
+        -2px -2px 1px @color-forum,
+        2px 0px 1px @color-forum,
+        0px 2px 1px @color-forum,
+        -2px 0px 1px @color-forum,
+        0px -2px 1px @color-forum;
 
     span {
         height: calc(45vw / 6);
@@ -342,6 +227,7 @@ article.detail {
         h1 {
             .font-faculty-bold;
             text-align: center;
+            font-size: 2.5em;
         }
 
         h2,
@@ -533,8 +419,7 @@ each(@colors, {
             background-color: @value;
 
             &:hover {
-								background:tint(@value, 50%);
-								font-weight: 800;
+                background:tint(@value, 50%);
             }
         }
 
@@ -551,6 +436,7 @@ each(@colors, {
                 }
 
                 &>.menuitem.@{key} {
+                    background: linear-gradient(0deg, @value 47%, lighten(@value, 20%, relative) 48%, lighten(@value, 20%, relative) 52%, @value 53%);
                 }
 
                 &>.video>.@{key} {
@@ -571,24 +457,9 @@ each(@colors, {
         //個別本文
         article.detail>section.@{key} {
             h1 {
-                // color:@value;
+                color:@value;
             }
         }
     }
 
 )
-
-/* Wrapper */
-
-body>*>.inner {
-	width: 100%;
-	max-width: 68em;
-	margin: 0 auto;
-	padding: 0 2.5em;
-}
-
-@media screen and (max-width: 736px) {
-	body>*>.inner {
-			padding: 0 1.25em;
-	}
-}
