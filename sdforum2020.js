@@ -25,12 +25,19 @@ function onYouTubeIframeAPIReady() {
         .then(data => {
             videosLabo = data.depertment;
             videosFaculty = data.faculty;
-            let newPage = (faculty) => {
+            const shuffle = (array) => {
+                for (let i = array.length - 1; i >= 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            const newPage = (faculty) => {
                 history.pushState('', '', "#" + faculty);
                 document.title = title[faculty];
                 console.log(title[faculty]);
             };
-            let pauseAllVideo = (ignoreID = false) => {
+            const pauseAllVideo = (ignoreID = false) => {
                 console.log("pause all videos");
                 Object.keys(playerFaculty).forEach((faculty) => {
                     if (typeof playerFaculty[faculty].pauseVideo == 'function' && ignoreID != faculty) {
@@ -43,8 +50,8 @@ function onYouTubeIframeAPIReady() {
                     }
                 });
             };
-            let showLaboVideo = (faculty) => {
-                videosLabo[faculty].forEach((v) => {
+            const showLaboVideo = (faculty) => {
+                shuffle(videosLabo[faculty]).forEach((v) => {
                     if (v.youtube == "") { return; }
                     let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
                     tpl.querySelector('.labo-video').id = v.youtube;
@@ -109,6 +116,7 @@ function onYouTubeIframeAPIReady() {
                             if (!ignoreLaboVideo && !opened.hasOwnProperty(faculty) && videosLabo.hasOwnProperty(faculty)) {
                                 showLaboVideo(faculty);
                                 opened[faculty] = true;
+                                console.log("showLaboVideo", "1");
                             }
                             callback();
                         },
@@ -140,6 +148,7 @@ function onYouTubeIframeAPIReady() {
                 if (!opened.hasOwnProperty(newFaculty) && videosLabo.hasOwnProperty(newFaculty)) {
                     showLaboVideo(newFaculty);
                     opened[newFaculty] = true;
+                    console.log("showLaboVideo", "2");
                 }
                 document.querySelector('.' + newFaculty + '[type=radio]').checked = true;
             });
@@ -151,6 +160,7 @@ function onYouTubeIframeAPIReady() {
                     if (!opened.hasOwnProperty(faculty) && videosLabo.hasOwnProperty(faculty)) {
                         showLaboVideo(faculty);
                         opened[faculty] = true;
+                        console.log("showLaboVideo", "3");
                     }
                     document.querySelector('.' + faculty + '[type=radio]').checked = true;
                     pauseAllVideo();
