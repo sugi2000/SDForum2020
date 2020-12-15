@@ -25,13 +25,14 @@ function onYouTubeIframeAPIReady() {
         .then(data => {
             videosLabo = data.depertment;
             videosFaculty = data.faculty;
+            /*
             const shuffle = (array) => {
                 for (let i = array.length - 1; i >= 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [array[i], array[j]] = [array[j], array[i]];
                 }
                 return array;
-            }
+            }*/
             const newPage = (faculty) => {
                 history.pushState('', '', "#" + faculty);
                 document.title = title[faculty];
@@ -51,19 +52,50 @@ function onYouTubeIframeAPIReady() {
                 });
             };
             const showLaboVideo = (faculty) => {
-                shuffle(videosLabo[faculty]).forEach((v) => {
+                /* shuffle(videosLabo[faculty]) */
+                videosLabo[faculty].forEach((v) => {
                     if (v.youtube == "") { return; }
                     let tpl = document.getElementById('card-template').querySelector('ui').cloneNode(true);
-                    tpl.querySelector('.labo-video').id = v.youtube;
-                    tpl.querySelector('.labo-video').style.backgroundImage = "url(https://img.youtube.com/vi/" + v.youtube + "/sddefault.jpg)";
+                    tpl.querySelector('.labo-video').setAttribute("x-video-id", v.youtube);
+                    const iframe = document.createElement("div");
+                    iframe.id = v.youtube;
+                    tpl.querySelector('.labo-video').appendChild(iframe);
+                    tpl.querySelector('.labo-video svg image').setAttributeNS('http://www.w3.org/1999/xlink', 'href', "https://img.youtube.com/vi/" + v.youtube + "/maxresdefault.jpg");
+                    let eles = tpl.querySelectorAll('.labo-video svg *');
+                    eles.forEach((ele) => {
+                        if (ele.id) {
+                            ele.id = ele.id.replace("_SVG_", v.youtube);
+                        }
+                        if (ele.getAttributeNS('http://www.w3.org/1999/xlink', 'href')) {
+                            ele.setAttributeNS('http://www.w3.org/1999/xlink', 'href', ele.getAttributeNS('http://www.w3.org/1999/xlink', 'href').replace("_SVG_", v.youtube));
+                        }
+                        if (ele.getAttribute('filter')) {
+                            ele.setAttribute('filter', ele.getAttribute('filter').replace("_SVG_", v.youtube));
+                        }
+                        if (ele.getAttribute('clip-path')) {
+                            ele.setAttribute('clip-path', ele.getAttribute('clip-path').replace("_SVG_", v.youtube));
+                        }
+                    });
+                    tpl.querySelector('.labo-video').addEventListener('mouseenter', e => {
+                        e.stopPropagation();
+                        const id = e.currentTarget.getAttribute("x-video-id");
+                        e.currentTarget.querySelector("svg #background" + id + " feGaussianBlur").setAttribute("stdDeviation", "15");
+                        e.currentTarget.querySelector("svg #blur" + id + " feFlood").setAttribute("flood-opacity", "1");
+                    });
+                    tpl.querySelector('.labo-video').addEventListener('mouseleave', e => {
+                        e.stopPropagation();
+                        const id = e.currentTarget.getAttribute("x-video-id");
+                        e.currentTarget.querySelector("svg #background" + id + " feGaussianBlur").setAttribute("stdDeviation", "0");
+                        e.currentTarget.querySelector("svg #blur" + id + " feFlood").setAttribute("flood-opacity", "0.65");
+                    });
                     tpl.querySelector('.labo-video').addEventListener('click', (e) => {
                         e.stopPropagation();
-                        console.log('Click:', e.currentTarget.id);
-                        if (!playerLabo.hasOwnProperty(e.currentTarget.id)) {
-                            let originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
-                            let id = e.currentTarget.id
-                            playerLabo[e.currentTarget.id] = new YT.Player(e.currentTarget.id, {
-                                videoId: e.currentTarget.id,
+                        const id = e.currentTarget.getAttribute("x-video-id");
+                        console.log('Click:', id);
+                        if (!playerLabo.hasOwnProperty(id)) {
+                            const originURL = location.protocol + '//' + location.hostname + (location.port != "" ? ":" + location.port : "");
+                            playerLabo[id] = new YT.Player(id, {
+                                videoId: id,
                                 width: "600px",
                                 playerVars: {
                                     rel: 0,
