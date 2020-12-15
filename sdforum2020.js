@@ -160,7 +160,21 @@ function onYouTubeIframeAPIReady() {
                     }
                 });
             }
-            document.querySelector('.video').addEventListener('click', (e) => {
+            document.querySelector('#title').addEventListener('click', (e) => {
+							e.stopPropagation();
+							document.querySelector('#mode').checked = !document.querySelector('#mode').checked;
+							Object.keys(videosFaculty).forEach((faculty) => {
+									if (document.querySelector('.videoselector.' + faculty).checked) {
+											if (document.querySelector('#mode').checked) {
+													playerFaculty[faculty].pauseVideo();
+											} else {
+													pauseAllVideo();
+													playerFaculty[faculty].playVideo();
+											}
+									}
+							});
+					}, false);
+					document.querySelector('.video').addEventListener('click', (e) => {
                 e.stopPropagation();
                 document.querySelector('#mode').checked = !document.querySelector('#mode').checked;
                 Object.keys(videosFaculty).forEach((faculty) => {
@@ -211,3 +225,8 @@ function onYouTubeIframeAPIReady() {
             ready = true;
         });
 }
+
+window.addEventListener("scroll", function () {
+  const header = document.querySelector("header");
+  header.classList.toggle("scrolled", window.scrollY > 0);
+});
